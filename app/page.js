@@ -1,7 +1,6 @@
 "use client";
-import Image from "next/image";
+import { useState } from "react";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
@@ -22,10 +21,7 @@ export default function Home() {
       const response = await fetch(
         `${SERVER_URL}?about=${encodeURIComponent(userInput)}`
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
+      const data = await handleHttpErrors(response);
       console.log(data);
       setAIResponse(data.answer);
 
@@ -56,20 +52,6 @@ export default function Home() {
     }
   };
 
-  // const try2 = `Question1: "What is the definition of a static web app?" Answer1: "A static web app is a website that consists of static web pages, where the content remains the same for all users and does not change dynamically based on user interactions or data input. These web apps are typically built using HTML, CSS, and JavaScript, and do not require server-side processing. They are well-suited for displaying informational content or providing a simple user interface."`;
-  // useEffect(() => {
-  //   if (try2.includes("Question2:")) {
-  //     setAiAnswer(
-  //       try2.substring(try2.indexOf("Answer1:"), try2.indexOf("Question2:"))
-  //     );
-  //   } else {
-  //     setAiAnswer(
-  //       try2.substring(try2.indexOf("Answer1:"), try2.length)
-  //     );
-  //   }
-  // }, []);
-  // console.log(try2.indexOf("Answer1:"), "aiAnswer");
-
   async function handleHttpErrors(res) {
     if (!res.ok) {
       const errorResponse = await res.json();
@@ -80,7 +62,8 @@ export default function Home() {
     }
     return res.json();
   }
-  console.log(aiAnswer, "<--aiAnswer", aiQuestion, "<--aiQuestion", aiAnswer2, "<--aiAnswer2", aiQuestion2, "<--aiQuestion2")
+
+  console.log(aiAnswer, "<--aiAnswer", aiQuestion, "<--aiQuestion", aiAnswer2, "<--aiAnswer2", aiQuestion2, "<--aiQuestion2");
   
   return (
     <section className={styles.container}>
@@ -108,7 +91,6 @@ export default function Home() {
           {showAnswer1 && <p className={styles.AIAnswer}>{aiAnswer}</p>}
           <p className={styles.AIQuestion} onClick={() => setShowAnswer2(!showAnswer2)}>{aiQuestion2}</p>
           {showAnswer2 && <p className={styles.AIAnswer}>{aiAnswer2}</p>}
-          
         </div>
       </div>
     </section>
