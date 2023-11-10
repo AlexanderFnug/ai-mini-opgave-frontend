@@ -20,11 +20,16 @@ jobs:
           submodules: true
           lfs: false
 
-          # Set up Node.js version
+         # Set up Node.js version
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x' # Specify the Node.js version here
+
+      # Install Yarn
+      - name: Install Yarn
+        run: npm install -g yarn
+
           
       - name: Build And Deploy
         id: builddeploy
@@ -38,6 +43,8 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
+          # Specify custom build commands if necessary
+          app_build_command: 'yarn install && yarn build' # Use Yarn for installation and build
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
