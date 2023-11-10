@@ -70,7 +70,7 @@ export default function Home() {
       <h1>AI Exam helper</h1>
       <p className={styles.description}>
         Copy and paste your exam question to the input and click send. The AI
-        teacher will then ask you questions, that you can answer. When you're ready, click the question to see the answer.
+        teacher will then ask you questions, that you can answer. When you are ready, click the question to see the answer.
       </p>
       <div className={styles.conversation}>
         <input
