@@ -62,8 +62,6 @@ export default function Home() {
     }
     return res.json();
   }
-
-  console.log(aiAnswer, "<--aiAnswer", aiQuestion, "<--aiQuestion", aiAnswer2, "<--aiAnswer2", aiQuestion2, "<--aiQuestion2");
   
   return (
     <section className={styles.container}>
